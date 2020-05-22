@@ -5,18 +5,34 @@
 // lingua
 // voto
 
+
 // aggancio il click al bottone per eseguire la ricerca;
 $('.button-search').click(function(){
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().toLowerCase();
 
-    // Faccio partire la chiamata ajax al database di TMDB per richiamare l'API contenente le info dei film;
+    // richiamo la funzione per richiedere i dati all'API di Tmdb;
+    richiesta_dati(input_utente)
+});
+
+$('.input-search').keypress(function (e) {
+    // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
+    var input_utente = $('.input-search').val().toLowerCase();
+    
+  if (e.which == 13)  {
+      // richiamo la funzione per richiedere i dati all'API di Tmdb;
+      richiesta_dati(input_utente)
+  }
+});
+
+// creo una funzione per far partire la chiamata ajax al database di TMDB per richiamare l'API contenente le info dei film;
+function richiesta_dati(input){
     $.ajax({
             'url': 'https://api.themoviedb.org/3/search/movie',
             'method': 'GET',
             'data': {
                 'api_key': '395a702f508318066d7e0e361a459f06',
-                'query': input_utente
+                'query': input
             },
             'success': function(answer) {
                 var movies = answer.results
@@ -27,9 +43,7 @@ $('.button-search').click(function(){
             alert('si è verificato un errore');
         }
     });
-
-})
-
+}
 // funzione per ciclare tutti i film trovati;
 function gestione_dati(film) {
     for (var i = 0; i < film.length; i++) {
