@@ -42,11 +42,13 @@ function gestione_dati(film) {
 // funzione per stampare in pagina solo le informazioni che mi interessano per ciascun film trovato
 function stampa_movies(info) {
     var titolo = info.title
-    $('.movie-list').append('<li>' + titolo + '</li>')
+    // $('.movie-list').append('<li><span>Titolo: </span>' + titolo + '</li>')
     var titolo_originale = info.original_title
-    $('.movie-list').append('<li>' + titolo_originale + '</li>')
+    // $('.movie-list').append('<li><span>Titolo originale: </span>' + titolo_originale + '</li>')
     var lingua = info.original_language
-    $('.movie-list').append('<li>' + lingua + '</li>')
+    // $('.movie-list').append('<li><span>Lingua originale: </span>' + lingua + '</li>')
     var voto = info.vote_average
-    $('.movie-list').append('<li>' + voto + '</li>')
+    // $('.movie-list').append('<li><span>Voto: </span>' + voto + '</li>')
+
+    $('main.container').append('<ul><li><span>Titolo: </span>' + titolo + '</li><li><span>Titolo originale: </span>' + titolo_originale + '</li><li><span>Lingua originale: </span>' + lingua + '</li><li><span>Voto: </span>' + voto + '</li></ul>')
 }
