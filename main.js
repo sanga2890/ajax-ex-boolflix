@@ -37,7 +37,6 @@ function gestione_dati(film) {
         // inserisco la funzione per la stampa in pagina;
         stampa_movies(current_movie)
     }
-
 }
 
 // funzione per stampare in pagina solo le informazioni che mi interessano per ciascun film trovato
