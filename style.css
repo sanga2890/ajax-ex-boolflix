@@ -32,7 +32,7 @@ header {
     color: #fff;
 }
 
-main {
+.results {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;

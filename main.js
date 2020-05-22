@@ -8,6 +8,9 @@
 
 // aggancio il click al bottone per eseguire la ricerca;
 $('.button-search').click(function(){
+    // pulisco la pagina da risultati pecedenti;
+    $('.results').text('')
+    
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().toLowerCase();
 
@@ -16,9 +19,12 @@ $('.button-search').click(function(){
 });
 
 $('.input-search').keypress(function (e) {
+    // pulisco la pagina da risultati pecedenti;
+    $('.results').text('')
+
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().toLowerCase();
-    
+
   if (e.which == 13)  {
       // richiamo la funzione per richiedere i dati all'API di Tmdb;
       richiesta_dati(input_utente)
@@ -64,5 +70,5 @@ function stampa_movies(info) {
     var voto = info.vote_average
     // $('.movie-list').append('<li><span>Voto: </span>' + voto + '</li>')
 
-    $('main.container').append('<ul><li><span>Titolo: </span>' + titolo + '</li><li><span>Titolo originale: </span>' + titolo_originale + '</li><li><span>Lingua originale: </span>' + lingua + '</li><li><span>Voto: </span>' + voto + '</li></ul>')
+    $('main.container .results').append('<ul><li><span>Titolo: </span>' + titolo + '</li><li><span>Titolo originale: </span>' + titolo_originale + '</li><li><span>Lingua originale: </span>' + lingua + '</li><li><span>Voto: </span>' + voto + '</li></ul>')
 }
