@@ -14,8 +14,10 @@ $('.button-search').click(function(){
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().toLowerCase();
 
-    // richiamo la funzione per richiedere i dati all'API di Tmdb;
+    // richiamo le funzioni per richiedere i dati all'API di Tmdb;
     richiesta_dati(input_utente)
+    richiesta_serie(input_utente)
+
 });
 
 $('.input-search').keypress(function (e) {
@@ -26,8 +28,9 @@ $('.input-search').keypress(function (e) {
     var input_utente = $('.input-search').val().toLowerCase();
 
   if (e.which == 13)  {
-      // richiamo la funzione per richiedere i dati all'API di Tmdb;
+      // richiamo le funzioni per richiedere i dati all'API di Tmdb;
       richiesta_dati(input_utente)
+      richiesta_serie(input_utente)
   }
 });
 
@@ -42,7 +45,7 @@ function richiesta_dati(input){
             },
             'success': function(answer) {
                 var movies = answer.results
-                // inseriscon la funzione per ciclare i film in basa al risultato della ricerca;
+                // inseriscon la funzione per ciclare i film in base al risultato della ricerca;
                 gestione_dati(movies)
             },
         'error': function() {
@@ -61,8 +64,10 @@ function gestione_dati(film) {
 
 // funzione per stampare in pagina solo le informazioni che mi interessano per ciascun film trovato
 function stampa_movies(info) {
+    // faccio diventare il voto da 1 a 5 al posto di 1 a 10 e arrotondo;
+    var rounded = Math.round(info.vote_average / 2);
     // uso handlebars per clonare il template
-    var source = $("#my-template").html();
+    var source = $("#movie-template").html();
         var template = Handlebars.compile(source);
         var context = {
             // recupero il titolo;
@@ -71,8 +76,61 @@ function stampa_movies(info) {
             'titolo_originale' : info.original_title,
             // recupero la lingua originale;
             'lingua' :info.original_language,
-            // recupero il voto;
-            'voto' : info.vote_average
+            // recupero il voto arrotondato;
+            'voto' : rounded
+        }
+
+        var html = template(context);
+        // stampo tutto in pagina nell'apposito container;
+        $('.results').append(html);
+}
+
+// funzione per effettuare una chiamata all'api di tmdb per la ricerca delle serie TV;
+function richiesta_serie(input){
+    $.ajax({
+            'url': 'https://api.themoviedb.org/3/search/tv',
+            'method': 'GET',
+            'data': {
+                'api_key': '395a702f508318066d7e0e361a459f06',
+                'query': input
+            },
+            'success': function(answer) {
+                var series = answer.results
+
+                // inseriscon la funzione per ciclare le serie tv in base al risultato della ricerca;
+                gestione_dati_serie(series)
+            },
+        'error': function() {
+            alert('si è verificato un errore');
+        }
+    });
+}
+
+function gestione_dati_serie(serie) {
+    for (var i = 0; i < serie.length; i++) {
+        var current_serie = serie[i]
+
+        // stampo la serie corrente
+        stampa_series(current_serie)
+    }
+
+}
+
+function stampa_series(info) {
+    // faccio diventare il voto da 1 a 5 al posto di 1 a 10 e arrotondo;
+    var rounded = Math.round(info.vote_average / 2);
+    // uso handlebars per clonare il template
+    var source = $("#serie-template").html();
+        var template = Handlebars.compile(source);
+        var context = {
+            // recupero il titolo;
+            'titolo' : info.name,
+            // recupero il titiolo originale;
+            'titolo_originale' : info.original_name,
+            // recupero la lingua originale;
+            'lingua' :info.original_language,
+            // recupero il voto arrotondato;
+            'voto' : rounded
         }
 
         var html = template(context);
