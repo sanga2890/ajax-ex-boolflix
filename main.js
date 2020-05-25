@@ -10,7 +10,7 @@
 $('.button-search').click(function(){
     // pulisco la pagina da risultati pecedenti;
     $('.results').text('')
-    
+
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().toLowerCase();
 
@@ -61,14 +61,21 @@ function gestione_dati(film) {
 
 // funzione per stampare in pagina solo le informazioni che mi interessano per ciascun film trovato
 function stampa_movies(info) {
-    var titolo = info.title
-    // $('.movie-list').append('<li><span>Titolo: </span>' + titolo + '</li>')
-    var titolo_originale = info.original_title
-    // $('.movie-list').append('<li><span>Titolo originale: </span>' + titolo_originale + '</li>')
-    var lingua = info.original_language
-    // $('.movie-list').append('<li><span>Lingua originale: </span>' + lingua + '</li>')
-    var voto = info.vote_average
-    // $('.movie-list').append('<li><span>Voto: </span>' + voto + '</li>')
+    // uso handlebars per clonare il template
+    var source = $("#my-template").html();
+        var template = Handlebars.compile(source);
+        var context = {
+            // recupero il titolo;
+            'titolo' : info.title,
+            // recupero il titiolo originale;
+            'titolo_originale' : info.original_title,
+            // recupero la lingua originale;
+            'lingua' :info.original_language,
+            // recupero il voto;
+            'voto' : info.vote_average
+        }
 
-    $('main.container .results').append('<ul><li><span>Titolo: </span>' + titolo + '</li><li><span>Titolo originale: </span>' + titolo_originale + '</li><li><span>Lingua originale: </span>' + lingua + '</li><li><span>Voto: </span>' + voto + '</li></ul>')
+        var html = template(context);
+        // stampo tutto in pagina nell'apposito container;
+        $('.results').append(html);
 }
