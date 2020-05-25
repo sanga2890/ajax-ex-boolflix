@@ -70,6 +70,8 @@ function stampa_movies(info) {
     var source = $("#movie-template").html();
         var template = Handlebars.compile(source);
         var context = {
+            // recupero la locandina;
+            'img' : 'https://image.tmdb.org/t/p/w185' + info.poster_path,
             // recupero il titolo;
             'titolo' : info.title,
             // recupero il titiolo originale;
@@ -123,6 +125,8 @@ function stampa_series(info) {
     var source = $("#serie-template").html();
         var template = Handlebars.compile(source);
         var context = {
+            // recupero la locandina;
+            'img' : 'https://image.tmdb.org/t/p/w185' + info.poster_path,
             // recupero il titolo;
             'titolo' : info.name,
             // recupero il titiolo originale;
