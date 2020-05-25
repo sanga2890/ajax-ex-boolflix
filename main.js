@@ -71,7 +71,7 @@ function stampa_movies(info) {
         var template = Handlebars.compile(source);
         var context = {
             // recupero la locandina;
-            'img' : 'https://image.tmdb.org/t/p/w185' + info.poster_path,
+            'img' : 'https://image.tmdb.org/t/p/w342' + info.backdrop_path,
             // recupero il titolo;
             'titolo' : info.title,
             // recupero il titiolo originale;
@@ -126,7 +126,7 @@ function stampa_series(info) {
         var template = Handlebars.compile(source);
         var context = {
             // recupero la locandina;
-            'img' : 'https://image.tmdb.org/t/p/w185' + info.poster_path,
+            'img' : 'https://image.tmdb.org/t/p/w342' + info.backdrop_path,
             // recupero il titolo;
             'titolo' : info.name,
             // recupero il titiolo originale;
