@@ -79,7 +79,7 @@ function stampa_movies(info) {
             // recupero la lingua originale;
             'lingua' :info.original_language,
             // recupero il voto arrotondato;
-            'voto' : rounded
+            'voto' : rating_stars(rounded)
         }
 
         var html = template(context);
@@ -132,12 +132,43 @@ function stampa_series(info) {
             // recupero il titiolo originale;
             'titolo_originale' : info.original_name,
             // recupero la lingua originale;
-            'lingua' :info.original_language,
+            'lingua' :flags(info.original_language),
             // recupero il voto arrotondato;
-            'voto' : rounded
+            'voto' : rating_stars(rounded)
         }
 
         var html = template(context);
         // stampo tutto in pagina nell'apposito container;
         $('.results').append(html);
 }
+
+function flags(lingua) {
+    var source = $("#flag-template").html();
+        var template = Handlebars.compile(source);
+    var bandiere = ['en', 'it', 'de', 'fr', 'es'];
+
+    if (bandiere.includes(lingua)){
+        var context = {
+            'flag' : lingua
+
+        };
+
+        var html = template(context);
+        return html;
+
+    }
+
+    return lingua;
+};
+
+function rating_stars(rating) {
+    var stars = '';
+    for (var i = 0; i < 5; i++) {
+        if (i <= rating) {
+            stars += '<i class="fas fa-star"></i>';
+        } else {
+            stars += '<i class="far fa-star"></i>';
+        }
+    }
+    return stars;
+};
