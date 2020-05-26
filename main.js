@@ -77,7 +77,7 @@ function stampa_movies(info) {
             // recupero il titiolo originale;
             'titolo_originale' : info.original_title,
             // recupero la lingua originale;
-            'lingua' :info.original_language,
+            'lingua' :flags(info.original_language),
             // recupero il voto arrotondato;
             'voto' : rating_stars(rounded)
         }

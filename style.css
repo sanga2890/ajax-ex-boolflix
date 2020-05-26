@@ -41,7 +41,6 @@ header {
 .results {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
 main ul {
