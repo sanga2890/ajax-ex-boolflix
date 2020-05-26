@@ -18,19 +18,22 @@
                     <img src="https://fontmeme.com/permalink/200522/0f045a4dd0b66989da121eef5e270db7.png" alt="logo boolfix">
                 </div>
                 <div class="header-right">
-                    <input class="input-search" type="text" name="search-movie">
+                    <input class="input-search" type="text" name="search-movie" placeholder="Cerca qui...">
                     <button class="button-search" type="button" name="button">Search</button>
                 </div>
             </div>
         </header>
+        <!-- contenuto principale -->
         <main class="container">
+            <!-- contenitore in cui verrà stampato tutto richiesto all'API con Ajax -->
             <div class="results"></div>
 
         </main>
 
-    	 <!-- inserisco template con handlebars da clonare con js -->
+    	 <!-- inserisco template per i film con handlebars da clonare con js -->
         <script id="movie-template" type="text/x-handlebars-template">
             <ul>
+                <!-- verrà aggiunta la copertina del film -->
                 <li><img src="{{img}}" alt=""></li>
                 <li><span>Titolo: </span>{{titolo}}</li>
                 <li><span>Titolo originale: </span>{{titolo_originale}}</li>
@@ -38,8 +41,11 @@
                 <li><span>Voto: </span> {{{voto}}}</li>
             </ul>
         </script>
+
+        <!-- handlebars template per le serie tv -->
         <script id="serie-template" type="text/x-handlebars-template">
             <ul>
+                <!-- verrà aggiunta la locandinda della serie tv -->
                 <li><img src="{{img}}" alt=""></li>
                 <li><span>Titolo: </span>{{titolo}}</li>
                 <li><span>Titolo originale: </span>{{titolo_originale}}</li>
@@ -47,6 +53,8 @@
                 <li><span>Voto: </span>{{{voto}}}</li>
             </ul>
         </script>
+
+        <!-- handlebars template per le bandiere -->
         <script id="flag-template" type="text/x-handlebars-template">
             <img src="img/{{flag}}.png" alt="{{flag}}">
         </script>
