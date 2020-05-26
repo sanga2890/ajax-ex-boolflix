@@ -41,14 +41,15 @@ header {
 .results {
     display: flex;
     flex-wrap: wrap;
+    padding-left: 30px;
 }
 
 main ul {
     list-style: none;
-    margin-top: 50px;
-    padding-right: 30px;
-    width: 342px;
-    margin-right: 5px;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 1s;
+
 }
 
 main ul>li {
@@ -61,4 +62,29 @@ main ul>li>span {
     font-size: 20px;
     font-weight: 700;
     color: red;
+}
+
+.results img.poster {
+    position: absolute;
+}
+
+.results .scheda {
+    margin-right: 18px;
+    margin-bottom: 50px;
+    width: 342px;
+    height: 192px;
+}
+
+.results .scheda:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.results .scheda:hover img.poster{
+    opacity: 0.3;
+}
+
+.results .scheda:hover ul {
+    opacity: 1;
+
 }
