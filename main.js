@@ -102,7 +102,10 @@ function stampa_movies(info) {
             'lingua' :flags(info.original_language),
 
             // recupero il voto arrotondato;
-            'voto' : rating_stars(rounded)
+            'voto' : rating_stars(rounded),
+
+            // recupero l'overview;
+            'overview' : info.overview
         }
 
         var html = template(context);
@@ -165,7 +168,10 @@ function stampa_series(info) {
             'lingua' :flags(info.original_language),
 
             // recupero il voto arrotondato;
-            'voto' : rating_stars(rounded)
+            'voto' : rating_stars(rounded),
+
+            // recupero l'overview;
+            'overview' : info.overview
         }
 
         var html = template(context);

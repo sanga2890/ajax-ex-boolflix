@@ -13,7 +13,7 @@
     </head>
     <body>
         <header>
-            <div class="header container">
+            <div class="header">
                 <div class="header-left">
                     <img src="https://fontmeme.com/permalink/200522/0f045a4dd0b66989da121eef5e270db7.png" alt="logo boolfix">
                 </div>
@@ -33,28 +33,47 @@
     	 <!-- inserisco template per i film con handlebars da clonare con js -->
         <script id="movie-template" type="text/x-handlebars-template">
             <div class="scheda">
+                <!-- verrà aggiunta la copertina del film -->
                 <img class="poster" src="{{img}}" alt="{{titolo}}">
-                <ul>
-                    <!-- verrà aggiunta la copertina del film -->
-                    <li><span>Titolo: </span>{{titolo}}</li>
-                    <li><span>Titolo originale: </span>{{titolo_originale}}</li>
-                    <li><span>Lingua originale: </span>{{{lingua}}}</li>
-                    <li><span>Voto: </span> {{{voto}}}</li>
-                </ul>
+                <div class="descrizione">
+                    <div class="scheda-top">
+                        <div class="titles">
+                            <h2>{{titolo}}</h2>
+                            <h3>{{titolo_originale}}</h3>
+                        </div>
+                        <div class="lang">
+                            <p>{{{lingua}}}</p>
+                        </div>
+                    </div>
+                    <h6 class="overview">{{overview}}</h6>
+                    <p class="rating">{{{voto}}}</p>
+                </div>
+
+
+
             </div>
         </script>
 
         <!-- handlebars template per le serie tv -->
         <script id="serie-template" type="text/x-handlebars-template">
             <div class="scheda">
+                <!-- verrà aggiunta la locandinda della serie tv -->
                 <img class="poster" src="{{img}}" alt="{{titolo}}">
-                <ul>
-                    <!-- verrà aggiunta la locandinda della serie tv -->
-                    <li><span>Titolo: </span>{{titolo}}</li>
-                    <li><span>Titolo originale: </span>{{titolo_originale}}</li>
-                    <li><span>Lingua originale: </span>{{{lingua}}}</li>
-                    <li><span>Voto: </span>{{{voto}}}</li>
-                </ul>
+                <div class="descrizione">
+                    <div class="scheda-top">
+                        <div class="titles">
+                            <h2>{{titolo}}</h2>
+                            <h3>{{titolo_originale}}</h3>
+                        </div>
+                        <div class="lang">
+                            <p>{{{lingua}}}</p>
+                        </div>
+                    </div>
+                    <h6 class="overview">{{overview}}</h6>
+                    <p class="rating">{{{voto}}}</p>
+                </div>
+
+
             </div>
         </script>
 
