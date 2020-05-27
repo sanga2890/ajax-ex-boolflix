@@ -7,6 +7,8 @@
         <script src="https://kit.fontawesome.com/29d802f49a.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <title>Boolflix</title>
@@ -18,8 +20,15 @@
                     <img src="https://fontmeme.com/permalink/200522/0f045a4dd0b66989da121eef5e270db7.png" alt="logo boolfix">
                 </div>
                 <div class="header-right">
-                    <input class="input-search" type="text" name="search-movie" placeholder="Cerca qui...">
-                    <button class="button-search" type="button" name="button">Search</button>
+                    <div class="search">
+                        <span class="material-icons button-search hidden">search</span>
+                        <span class="material-icons open-input">search</span>
+                        <input class="input-search hidden" type="text" name="search-movie" placeholder="Cerca qui...">
+                    </div>
+                    <img class="account" src="img/account.png" alt="">
+
+
+
                 </div>
             </div>
         </header>

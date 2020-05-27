@@ -4,9 +4,6 @@
 // aggancio il click al bottone per eseguire la ricerca;
 $('.button-search').click(function(){
 
-    // pulisco la pagina da risultati pecedenti;
-    $('.results').text('')
-
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().trim().toLowerCase();
 
@@ -23,9 +20,30 @@ $('.button-search').click(function(){
   }
 });
 
+// intercette il click sull'icona per aprire l'input per la ricerca;
+$('.search .open-input').click(function(){
+    $('.input-search, .button-search').removeClass('hidden');
+    $('.open-input').addClass('hidden');
+    $('.search').css({"width" : "300px", "border" : "1px solid #fff", "border-radius" : "2px"});
+})
+
+// richiudo l'input per la ricerca se clicco in un qualsiasi punto fuori;
+$(document).click(function(event){
+    var target = $(event.target);
+    if (!target.hasClass('input-search') && !target.hasClass('open-input') && !target.hasClass('button-search')) {
+
+        // richiudo l'input ricerca;
+        $('.input-search, .button-search').addClass('hidden');
+        $('.open-input').removeClass('hidden');
+        $('.search').css("width", "40px");
+        var time = setTimeout(border_none, 400);
+        function border_none(){
+            $('.search').css("border", "none");
+        }
+    }
+});
+
 $('.input-search').keyup(function (e) {
-    // pulisco la pagina da risultati pecedenti;
-    $('.results').text('')
 
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().trim().toLowerCase();
@@ -57,7 +75,11 @@ function richiesta_dati(input){
                 'query': input
             },
             'success': function(answer) {
-                var movies = answer.results
+                var movies = answer.results;
+
+                // pulisco la pagina da risultati pecedenti;
+                $('.results').text('');
+                $('.input-search').val('');
 
                 // inseriscon la funzione per ciclare i film in base al risultato della ricerca;
                 gestione_dati(movies)
@@ -124,7 +146,11 @@ function richiesta_serie(input){
                 'query': input
             },
             'success': function(answer) {
-                var series = answer.results
+                var series = answer.results;
+
+                // pulisco la pagina da risultati pecedenti;
+                $('.results').text('');
+                $('.input-search').val('')
 
                 // inseriscon la funzione per ciclare le serie tv in base al risultato della ricerca;
                 gestione_dati_serie(series)

@@ -18,7 +18,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 20px 30px;
+}
+
+.header-left img {
+    width: 200px;
 }
 
 header {
@@ -26,18 +30,60 @@ header {
     background-color: black;
 }
 
+.header-right .search {
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    display: flex;
+    transition: all 0.5s;
+    transition-timing-function: ease-in-out;
+
+}
 .header-right input {
-    border-radius: 15px;
-    height: 30px;
-    width: 300px;
+    height: 38px;
+    width: 200px;
     margin-right: 20px;
     padding-left: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    transition: all 0.5s;
+    transition-timing-function: ease-in-out;
 }
 
-.header-right button {
-    height: 30px;
-    width: 70px;
+.hidden {
+    display: none;
 }
+
+.search .material-icons.button-search {
+    line-height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    color: #fff;
+}
+
+.search .material-icons.open-input {
+    line-height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    color: #fff;
+}
+
+.header-right {
+    display: flex;
+}
+
+.header-right .account {
+    width: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+
 .results {
     display: flex;
     flex-wrap: wrap;
