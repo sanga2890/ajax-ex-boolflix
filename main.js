@@ -3,21 +3,8 @@
 
 // aggancio il click al bottone per eseguire la ricerca;
 $('.button-search').click(function(){
-
-    // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
-    var input_utente = $('.input-search').val().trim().toLowerCase();
-
-    // verifico che siano stati inseriti almeno 2 caratteri;
-    if (input_utente.length > 1 ){
-
         // richiamo le funzioni per richiedere i dati all'API di Tmdb;
-        richiesta_dati(input_utente)
-        richiesta_serie(input_utente)
-    } else {
-
-      // avviso che indica il numero minimo di caratteri da digitare;
-      alert('Caratteri insufficienti! Inserisci almeno 2 lettere per poter effettuare una ricerca.');
-  }
+        richiesta_dati();
 });
 
 // intercette il click sull'icona per aprire l'input per la ricerca;
@@ -30,7 +17,7 @@ $('.search .open-input').click(function(){
 // richiudo l'input per la ricerca se clicco in un qualsiasi punto fuori;
 $(document).click(function(event){
     var target = $(event.target);
-    if (!target.hasClass('input-search') && !target.hasClass('open-input') && !target.hasClass('button-search')) {
+    if (!target.hasClass('input-search') && !target.hasClass('open-input') && !target.hasClass('button-search') && !target.hasClass('search')) {
 
         // richiudo l'input ricerca;
         $('.input-search, .button-search').addClass('hidden');
@@ -51,35 +38,33 @@ $('.input-search').keyup(function (e) {
     // verifico che il premuto sia Enter/Invio;
     if (e.which == 13)  {
 
-      // verifico che siano stati inseriti almeno 2 caratteri;
-      if (input_utente.length > 1 ){
-
           // richiamo le funzioni per richiedere i dati all'API di Tmdb;
-          richiesta_dati(input_utente)
-          richiesta_serie(input_utente)
-        } else {
-
-        // avviso che indica il numero minimo di caratteri da digitare;
-        alert('Caratteri insufficienti! Inserisci almeno 2 lettere per poter effettuare una ricerca.');
-    }
-  }
+          richiesta_dati();
+      }
 });
 
-// creo una funzione per far partire la chiamata ajax al database di TMDB per richiamare l'API contenente le info dei film;
-function richiesta_dati(input){
+// creo una funzione per far partire la chiamata ajax al database di TMDB per richiamare l'API contenente le varie info;
+
+// richiesta dati film;
+function richiesta_dati(){
+    // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
+    var input_utente = $('.input-search').val().trim().toLowerCase();
+
+    // verifico che siano stati inseriti almeno 2 caratteri;
+    if (input_utente.length > 1 ){
+
+        // pulisco la pagina da risultati pecedenti;
+        $('.results').text('')
+
     $.ajax({
             'url': 'https://api.themoviedb.org/3/search/movie',
             'method': 'GET',
             'data': {
                 'api_key': '395a702f508318066d7e0e361a459f06',
-                'query': input
+                'query': input_utente
             },
             'success': function(answer) {
                 var movies = answer.results;
-
-                // pulisco la pagina da risultati pecedenti;
-                $('.results').text('');
-                $('.input-search').val('');
 
                 // inseriscon la funzione per ciclare i film in base al risultato della ricerca;
                 gestione_dati(movies)
@@ -88,6 +73,33 @@ function richiesta_dati(input){
             alert('si è verificato un errore');
         }
     });
+
+// chiamata all'api di tmdb per la ricerca delle serie TV;
+    $.ajax({
+            'url': 'https://api.themoviedb.org/3/search/tv',
+            'method': 'GET',
+            'data': {
+                'api_key': '395a702f508318066d7e0e361a459f06',
+                'query': input_utente
+            },
+            'success': function(answer) {
+                var series = answer.results;
+
+                // inseriscon la funzione per ciclare le serie tv in base al risultato della ricerca;
+                gestione_dati_serie(series)
+            },
+        'error': function() {
+            alert('si è verificato un errore');
+        }
+    });
+} else {
+
+    // avviso che indica il numero minimo di caratteri da digitare;
+    alert('Caratteri insufficienti! Inserisci almeno 2 lettere per poter effettuare una ricerca.');
+    }
+
+    // pulisco l'input;
+    $('.input-search').val('');
 }
 
 // funzione per ciclare tutti i film trovati;
@@ -136,30 +148,6 @@ function stampa_movies(info) {
         $('.results').append(html);
 }
 
-// funzione per effettuare una chiamata all'api di tmdb per la ricerca delle serie TV;
-function richiesta_serie(input){
-    $.ajax({
-            'url': 'https://api.themoviedb.org/3/search/tv',
-            'method': 'GET',
-            'data': {
-                'api_key': '395a702f508318066d7e0e361a459f06',
-                'query': input
-            },
-            'success': function(answer) {
-                var series = answer.results;
-
-                // pulisco la pagina da risultati pecedenti;
-                $('.results').text('');
-                $('.input-search').val('')
-
-                // inseriscon la funzione per ciclare le serie tv in base al risultato della ricerca;
-                gestione_dati_serie(series)
-            },
-        'error': function() {
-            alert('si è verificato un errore');
-        }
-    });
-}
 
 function gestione_dati_serie(serie) {
     for (var i = 0; i < serie.length; i++) {

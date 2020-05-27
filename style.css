@@ -6,7 +6,8 @@
 }
 
 body {
-    background-color: black;
+    background: rgb(9,9,10);
+    background: linear-gradient(90deg, rgba(9,9,10,1) 0%, rgba(42,42,45,1) 100%);
 }
 
 .container {
@@ -18,16 +19,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
+    padding: 10px 30px;
 }
 
 .header-left img {
-    width: 200px;
+    width: 150px;
 }
 
 header {
     min-height: 80px;
     background-color: black;
+    position: fixed;
+    width: 100vw;
+    z-index: 1000;
 }
 
 .header-right .search {
@@ -41,7 +45,7 @@ header {
 }
 .header-right input {
     height: 38px;
-    width: 200px;
+    width: 290px;
     margin-right: 20px;
     padding-left: 10px;
     border: none;
@@ -88,7 +92,7 @@ header {
     display: flex;
     flex-wrap: wrap;
     padding-left: 30px;
-    padding-top: 50px;
+    padding-top: 200px;
 }
 
 
@@ -122,7 +126,7 @@ header {
 }
 
 .scheda-top h2 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
 }
 
