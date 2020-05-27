@@ -101,7 +101,7 @@ function stampa_movies(info) {
         var context = {
 
             // recupero la locandina;
-            'img' : 'https://image.tmdb.org/t/p/w342' + info.backdrop_path,
+            'img' : stampa_poster(info.backdrop_path),
 
             // recupero il titolo;
             'titolo' : info.title,
@@ -164,7 +164,7 @@ function stampa_series(info) {
         var context = {
 
             // recupero la locandina;
-            'img' : 'https://image.tmdb.org/t/p/w342' + info.backdrop_path,
+            'img' : stampa_poster(info.backdrop_path),
 
             // recupero il titolo;
             'titolo' : info.name,
@@ -230,3 +230,15 @@ function rating_stars(rating) {
     }
     return stars;
 };
+
+// Creo funzione per recuperare il poster del film/serieTV
+function stampa_poster(poster) {
+    // verifico che il risultato della richiesta sia diverso da 'null';
+    if (poster != null) {
+        var img = 'https://image.tmdb.org/t/p/w342' + poster
+        // in caso contrario stampo un immagine che mi indica che la foto non è disponibile;
+    } else {
+        var img = 'https://montagnolirino.it/wp-content/uploads/2015/12/immagine-non-disponibile.png'
+    }
+    return img
+}

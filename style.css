@@ -48,8 +48,6 @@ main ul {
     list-style: none;
     padding: 20px;
     opacity: 0;
-    transition: opacity 1s;
-
 }
 
 main ul>li {
@@ -75,16 +73,22 @@ main ul>li>span {
     height: 192px;
 }
 
+.results img.poster {
+    width: 342px;
+    height: 192px;
+}
+
 .results .scheda:hover {
     transform: scale(1.1);
     z-index: 10;
 }
 
 .results .scheda:hover img.poster{
-    opacity: 0.3;
+    opacity: 0.2;
+    transition: opacity 1s;
 }
 
 .results .scheda:hover ul {
     opacity: 1;
-
+    transition: opacity 1s;
 }
