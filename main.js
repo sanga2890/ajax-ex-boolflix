@@ -1,17 +1,11 @@
-// Predisporre quindi un layout molto semplice con una barra di ricerca e un pulsante: al click sul pulsante fare partire una chiamata ajax a tmdb per recuperare i film che corrispondo alla query di ricerca inserita dall'utente.
-// Ciclare i risultati e per ogni film restituito, stamparne in pagina:
-// titolo
-// titolo originale
-// lingua
-// voto
-
+// BOOLFLIX
+// riproduzione della schermata principale di Netflix, con ricerca film e serie tv, immagini di copertina, info ecc...
 
 // aggancio il click al bottone per eseguire la ricerca;
 $('.button-search').click(function(){
 
     // pulisco la pagina da risultati pecedenti;
     $('.results').text('')
-
 
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().trim().toLowerCase();
@@ -27,20 +21,17 @@ $('.button-search').click(function(){
       // avviso che indica il numero minimo di caratteri da digitare;
       alert('Caratteri insufficienti! Inserisci almeno 2 lettere per poter effettuare una ricerca.');
   }
-
-
-
 });
 
 $('.input-search').keyup(function (e) {
     // pulisco la pagina da risultati pecedenti;
     $('.results').text('')
 
-
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().trim().toLowerCase();
 
-  if (e.which == 13)  {
+    // verifico che il premuto sia Enter/Invio;
+    if (e.which == 13)  {
 
       // verifico che siano stati inseriti almeno 2 caratteri;
       if (input_utente.length > 1 ){
@@ -53,9 +44,7 @@ $('.input-search').keyup(function (e) {
         // avviso che indica il numero minimo di caratteri da digitare;
         alert('Caratteri insufficienti! Inserisci almeno 2 lettere per poter effettuare una ricerca.');
     }
-
   }
-
 });
 
 // creo una funzione per far partire la chiamata ajax al database di TMDB per richiamare l'API contenente le info dei film;
@@ -150,10 +139,10 @@ function gestione_dati_serie(serie) {
         // stampo la serie corrente
         stampa_series(current_serie)
     }
-
 }
 
 function stampa_series(info) {
+    console.log(info.backdrop_path);
 
     // faccio diventare il voto da 1 a 5 al posto di 1 a 10 e arrotondo;
     var rounded = Math.round(info.vote_average / 2);
@@ -199,12 +188,10 @@ function flags(lingua) {
     if (bandiere.includes(lingua)){
         var context = {
             'flag' : lingua
-
         };
 
         var html = template(context);
         return html;
-
     }
 
     return lingua;
@@ -238,7 +225,7 @@ function stampa_poster(poster) {
         var img = 'https://image.tmdb.org/t/p/w342' + poster
         // in caso contrario stampo un immagine che mi indica che la foto non è disponibile;
     } else {
-        var img = 'https://montagnolirino.it/wp-content/uploads/2015/12/immagine-non-disponibile.png'
+        var img = 'img/nondisponibile.png'
     }
     return img
 }
