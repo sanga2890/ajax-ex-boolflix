@@ -228,11 +228,11 @@ function rating_stars(rating) {
 
         // in base al numero che sta ad indicare il voto vado a stampare un numero di stelline piene, pari al voto recuperato dall'api;
         if (i <= rating) {
-            stars += '<i class="fas fa-star"></i>';
+            stars += '<span class="material-icons">star</span>';
         } else {
 
             // se il voto è inferiore a 5, stampo le restanti stelline vuote;
-            stars += '<i class="far fa-star"></i>';
+            stars += '<span class="material-icons">star_border</span>';
         }
     }
     return stars;

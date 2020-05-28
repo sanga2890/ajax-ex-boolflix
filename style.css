@@ -155,7 +155,10 @@ header {
     bottom: 0;
     padding: 5px;
     color: gold;
-    font-size: 12px;
+}
+
+.rating .material-icons {
+    font-size: 15px;
 }
 
 .results .scheda:hover {
