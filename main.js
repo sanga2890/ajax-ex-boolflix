@@ -32,9 +32,6 @@ $(document).click(function(event){
 
 $('.input-search').keyup(function (e) {
 
-    // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
-    var input_utente = $('.input-search').val().trim().toLowerCase();
-
     // verifico che il premuto sia Enter/Invio;
     if (e.which == 13)  {
 
@@ -47,6 +44,7 @@ $('.input-search').keyup(function (e) {
 
 // richiesta dati film;
 function richiesta_dati(){
+
     // vado a leggere quello che l'utente ha scritto nella barra di ricerca e lo salvo in una variabile;
     var input_utente = $('.input-search').val().trim().toLowerCase();
 
@@ -66,8 +64,10 @@ function richiesta_dati(){
             'success': function(answer) {
                 var movies = answer.results;
 
+                risultati_ricerca(input_utente);
+
                 // inseriscon la funzione per ciclare i film in base al risultato della ricerca;
-                gestione_dati(movies)
+                gestione_dati(movies);
             },
         'error': function() {
             alert('si è verificato un errore');
@@ -85,8 +85,10 @@ function richiesta_dati(){
             'success': function(answer) {
                 var series = answer.results;
 
+                risultati_ricerca(input_utente);
+
                 // inseriscon la funzione per ciclare le serie tv in base al risultato della ricerca;
-                gestione_dati_serie(series)
+                gestione_dati(series);
             },
         'error': function() {
             alert('si è verificato un errore');
@@ -102,18 +104,26 @@ function richiesta_dati(){
     $('.input-search').val('');
 }
 
+// funzione per visulizzare la parola cercata;
+    function risultati_ricerca(testo_utente) {
+        // inserisco il testo cercato dall'utente nel titolo della pagina
+        $('.risultato').text(testo_utente);
+        // visualizzo il titolo della pagina
+        $('.ricerca').removeClass('hidden');
+    }
+
 // funzione per ciclare tutti i film trovati;
-function gestione_dati(film) {
-    for (var i = 0; i < film.length; i++) {
-        var current_movie = film[i]
+function gestione_dati(contenuto) {
+    for (var i = 0; i < contenuto.length; i++) {
+        var current_contenuto = contenuto[i]
 
         // inserisco la funzione per la stampa in pagina;
-        stampa_movies(current_movie)
+        stampa(current_contenuto)
     }
 }
 
 // funzione per stampare in pagina solo le informazioni che mi interessano per ciascun film trovato
-function stampa_movies(info) {
+function stampa(info) {
 
     // faccio diventare il voto da 1 a 5 al posto di 1 a 10 e arrotondo;
     var rounded = Math.round(info.vote_average / 2);
@@ -127,56 +137,10 @@ function stampa_movies(info) {
             'img' : stampa_poster(info.backdrop_path),
 
             // recupero il titolo;
-            'titolo' : info.title,
+            'titolo' : info.title || info.name,
 
             // recupero il titiolo originale;
-            'titolo_originale' : info.original_title,
-
-            // recupero la lingua originale;
-            'lingua' :flags(info.original_language),
-
-            // recupero il voto arrotondato;
-            'voto' : rating_stars(rounded),
-
-            // recupero l'overview;
-            'overview' : info.overview
-        }
-
-        var html = template(context);
-
-        // stampo tutto in pagina nell'apposito container;
-        $('.results').append(html);
-}
-
-
-function gestione_dati_serie(serie) {
-    for (var i = 0; i < serie.length; i++) {
-        var current_serie = serie[i]
-
-        // stampo la serie corrente
-        stampa_series(current_serie)
-    }
-}
-
-function stampa_series(info) {
-    console.log(info.backdrop_path);
-
-    // faccio diventare il voto da 1 a 5 al posto di 1 a 10 e arrotondo;
-    var rounded = Math.round(info.vote_average / 2);
-
-    // uso handlebars per clonare il template
-    var source = $("#serie-template").html();
-        var template = Handlebars.compile(source);
-        var context = {
-
-            // recupero la locandina;
-            'img' : stampa_poster(info.backdrop_path),
-
-            // recupero il titolo;
-            'titolo' : info.name,
-
-            // recupero il titiolo originale;
-            'titolo_originale' : info.original_name,
+            'titolo_originale' : info.original_title || info.original_name,
 
             // recupero la lingua originale;
             'lingua' :flags(info.original_language),
