@@ -10,6 +10,7 @@ $('.button-search').click(function(){
 // intercette il click sull'icona per aprire l'input per la ricerca;
 $('.search .open-input').click(function(){
     $('.input-search, .button-search').removeClass('hidden');
+    $('.input-search').focus();
     $('.open-input').addClass('hidden');
     $('.search').css({"width" : "300px", "border" : "1px solid #fff", "border-radius" : "2px"});
 })
@@ -67,7 +68,7 @@ function richiesta_dati(){
                 risultati_ricerca(input_utente);
 
                 // inseriscon la funzione per ciclare i film in base al risultato della ricerca;
-                gestione_dati(movies);
+                gestione_dati(movies, 'Movie');
             },
         'error': function() {
             alert('si è verificato un errore');
@@ -88,12 +89,13 @@ function richiesta_dati(){
                 risultati_ricerca(input_utente);
 
                 // inseriscon la funzione per ciclare le serie tv in base al risultato della ricerca;
-                gestione_dati(series);
+                gestione_dati(series, 'TV');
             },
         'error': function() {
             alert('si è verificato un errore');
         }
     });
+
 } else {
 
     // avviso che indica il numero minimo di caratteri da digitare;
@@ -113,17 +115,17 @@ function richiesta_dati(){
     }
 
 // funzione per ciclare tutti i film trovati;
-function gestione_dati(contenuto) {
+function gestione_dati(contenuto, type) {
     for (var i = 0; i < contenuto.length; i++) {
         var current_contenuto = contenuto[i]
 
         // inserisco la funzione per la stampa in pagina;
-        stampa(current_contenuto)
+        stampa(current_contenuto, type)
     }
 }
 
 // funzione per stampare in pagina solo le informazioni che mi interessano per ciascun film trovato
-function stampa(info) {
+function stampa(info, type) {
 
     // faccio diventare il voto da 1 a 5 al posto di 1 a 10 e arrotondo;
     var rounded = Math.round(info.vote_average / 2);
@@ -149,7 +151,10 @@ function stampa(info) {
             'voto' : rating_stars(rounded),
 
             // recupero l'overview;
-            'overview' : info.overview
+            'overview' : info.overview,
+
+            // È un film o una serie tv?
+            'type' : type
         }
 
         var html = template(context);
