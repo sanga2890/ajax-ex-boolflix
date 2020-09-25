@@ -90,12 +90,14 @@ header {
 .ricerca {
     padding-top: 200px;
     color: #fff;
+    padding-left: 40px;
 }
 
 .results {
     display: flex;
     flex-wrap: wrap;
     padding-top: 50px;
+    padding-left: 40px ;
 }
 
 
